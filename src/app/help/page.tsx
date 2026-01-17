@@ -5,12 +5,12 @@ import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import Card from "@/components/ui/Card";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import { Search, Book, PlayCircle, ShieldInfo, Cpu } from "lucide-react";
+import { Search, Book, PlayCircle, ShieldCheck, Cpu } from "lucide-react";
 
 export default function HelpCenterPage() {
     const CATEGORIES = [
         { title: "Getting Started", icon: PlayCircle, desc: "Basics of orchestration and prompt logic." },
-        { title: "Billing & Credits", icon: ShieldInfo, desc: "Managing your wallet and tiered access." },
+        { title: "Billing & Credits", icon: ShieldCheck, desc: "Managing your wallet and tiered access." },
         { title: "Agent Deep-Dive", icon: Cpu, desc: "Technical specs of Thinker/Planner nodes." },
         { title: "Developer Integrations", icon: Book, desc: "API, CLI, and Webhook configuration." },
     ];

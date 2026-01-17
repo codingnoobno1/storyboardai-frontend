@@ -1,14 +1,15 @@
 import React from "react";
 
-interface CardProps {
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
     title?: string;
+    subtitle?: string;
     padding?: string;
     style?: React.CSSProperties;
     variant?: "consumer" | "creator" | "admin" | "default";
 }
 
-export default function Card({ children, title, padding = "2rem", style, variant = "default" }: CardProps) {
+export default function Card({ children, title, subtitle, padding = "2rem", style, variant = "default", ...props }: CardProps) {
     const getVariantStyles = () => {
         switch (variant) {
             case "consumer":
@@ -51,18 +52,21 @@ export default function Card({ children, title, padding = "2rem", style, variant
                 ...variantStyles,
                 ...style,
             }}
+            {...props}
         >
             {title && (
-                <h3
-                    style={{
-                        fontSize: "1.2rem",
-                        fontWeight: 700,
-                        marginBottom: "1.5rem",
-                        color: "white",
-                    }}
-                >
-                    {title}
-                </h3>
+                <div style={{ marginBottom: "1.5rem" }}>
+                    <h3
+                        style={{
+                            fontSize: "1.2rem",
+                            fontWeight: 700,
+                            color: "white",
+                        }}
+                    >
+                        {title}
+                    </h3>
+                    {subtitle && <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.85rem", marginTop: "4px" }}>{subtitle}</p>}
+                </div>
             )}
             {children}
         </div>

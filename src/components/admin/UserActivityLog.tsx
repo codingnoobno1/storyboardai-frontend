@@ -28,7 +28,7 @@ export default function UserActivityLog() {
                             justifyContent: "center",
                             flexShrink: 0
                         }}>
-                            {log.type === 'security' ? <ShieldInfo size={16} color="var(--accent)" /> : log.type === 'telemetry' ? <Terminal size={16} /> : <User size={16} />}
+                            {log.type === 'security' ? <Shield size={16} color="var(--accent)" /> : log.type === 'telemetry' ? <Terminal size={16} /> : <User size={16} />}
                         </div>
                         <div style={{ flex: 1 }}>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>

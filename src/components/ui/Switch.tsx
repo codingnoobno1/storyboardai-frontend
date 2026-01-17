@@ -5,11 +5,11 @@ import React from "react";
 
 interface SwitchProps {
     checked: boolean;
-    onCheckedChange: (checked: boolean) => void;
+    onCheckedChange?: (checked: boolean) => void;
     label?: string;
 }
 
-export default function Switch({ checked, onCheckedChange, label }: SwitchProps) {
+export default function Switch({ checked, onCheckedChange = () => { }, label }: SwitchProps) {
     return (
         <div style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "pointer" }} onClick={() => onCheckedChange(!checked)}>
             <div

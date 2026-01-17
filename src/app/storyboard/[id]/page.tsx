@@ -14,7 +14,8 @@ import {
     Music,
     Type,
     ChevronRight,
-    MoreHorizontal
+    MoreHorizontal,
+    Settings
 } from "lucide-react";
 import { motion } from "framer-motion";
 

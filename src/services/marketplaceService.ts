@@ -4,7 +4,7 @@ import { paymentService } from "./paymentService";
 
 export const marketplaceService = {
     getTopTemplates: async () => {
-        return templateService.getAllTemplates(); // Mocking for now
+        return templateService.getAll(); // Corrected method name
     },
     getTemplateAnalytics: async (id: string) => {
         return {

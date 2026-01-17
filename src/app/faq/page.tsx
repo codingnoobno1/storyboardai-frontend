@@ -6,13 +6,14 @@ import Footer from "@/components/navigation/Footer";
 import { MessageSquare, HelpCircle, ArrowRight } from "lucide-react";
 import Card from "@/components/ui/Card";
 import Accordion from "@/components/ui/Accordion";
+import Button from "@/components/ui/Button";
 
 export default function FAQPage() {
     const FAQS = [
-        { title: "What is the difference between a Story and a Visual?", content: "A Story credit covers the narrative logic and script generation. A Visual credit covers the high-fidelity AI image generation for each scene." },
-        { title: "Can I export my projects for commercial use?", content: "Absolutely. Any production generated on a paid tier belongs to you 100%." },
-        { title: "Which AI models does StoryBoard AI use?", content: "We use a proprietary ensemble of GPT-4, Gemini Pro, and Stable Diffusion XL, orchestrated by our custom agentic architecture." },
-        { title: "Can I cancel my subscription anytime?", content: "Yes, you can manage and cancel your tiered access at any time through the Billing section of your dashboard." }
+        { id: "1", title: "What is the difference between a Story and a Visual?", content: "A Story credit covers the narrative logic and script generation. A Visual credit covers the high-fidelity AI image generation for each scene." },
+        { id: "2", title: "Can I export my projects for commercial use?", content: "Absolutely. Any production generated on a paid tier belongs to you 100%." },
+        { id: "3", title: "Which AI models does StoryBoard AI use?", content: "We use a proprietary ensemble of GPT-4, Gemini Pro, and Stable Diffusion XL, orchestrated by our custom agentic architecture." },
+        { id: "4", title: "Can I cancel my subscription anytime?", content: "Yes, you can manage and cancel your tiered access at any time through the Billing section of your dashboard." }
     ];
 
     return (

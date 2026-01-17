@@ -15,6 +15,7 @@ export default function Button({
     size = "md",
     isLoading,
     className,
+    style,
     ...props
 }: ButtonProps) {
     const baseStyles: React.CSSProperties = {
@@ -66,14 +67,21 @@ export default function Button({
         icon: { padding: "10px", borderRadius: "10px" },
     };
 
-    const currentVariant = variants[variant];
-    const currentSize = sizes[size];
+    const currentVariant = variants[variant] || variants.primary;
+    const currentSize = sizes[size] || sizes.md;
+
+    const combinedStyle = {
+        ...baseStyles,
+        ...currentVariant,
+        ...currentSize,
+        ...(style as object)
+    };
 
     return (
         <motion.button
             whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
-            style={{ ...baseStyles, ...currentVariant, ...currentSize }}
+            style={combinedStyle}
             disabled={isLoading}
             {...props}
         >
@@ -84,7 +92,7 @@ export default function Button({
                     style={{ width: "16px", height: "16px", border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "white", borderRadius: "50%" }}
                 />
             )}
-            <span style={{ opacity: isLoading ? 0 : 1 }}>{children}</span>
+            <span style={{ opacity: isLoading ? 0 : 1 }}>{children as React.ReactNode}</span>
         </motion.button>
     );
 }

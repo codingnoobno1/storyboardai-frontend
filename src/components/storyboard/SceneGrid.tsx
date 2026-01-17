@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { List, Grid, Maximize2, Trash2, ReplayCcw } from "lucide-react";
+import { List, Grid, Maximize2, Trash2, RotateCcw, Plus } from "lucide-react";
 import Card from "../ui/Card";
 import Badge from "../ui/Badge";
 import { motion } from "framer-motion";
@@ -46,7 +46,7 @@ export default function SceneGrid() {
                                     {scene.prompt}
                                 </p>
                                 <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px", marginTop: "1rem" }}>
-                                    <button style={{ background: "none", border: "none", color: "rgba(255,255,255,0.3)", cursor: "pointer" }}><ReplayCcw size={16} /></button>
+                                    <button style={{ background: "none", border: "none", color: "rgba(255,255,255,0.3)", cursor: "pointer" }}><RotateCcw size={16} /></button>
                                     <button style={{ background: "none", border: "none", color: "rgba(255,255,255,0.3)", cursor: "pointer" }}><Maximize2 size={16} /></button>
                                     <button style={{ background: "none", border: "none", color: "rgba(255,255,255,0.3)", cursor: "pointer" }}><Trash2 size={16} /></button>
                                 </div>

@@ -3,7 +3,13 @@
 import React from "react";
 import { Star } from "lucide-react";
 
-export default function Rating({ value, total = 5, size = 16 }) {
+interface RatingProps {
+    value: number;
+    total?: number;
+    size?: number;
+}
+
+export default function Rating({ value, total = 5, size = 16 }: RatingProps) {
     return (
         <div style={{ display: "flex", gap: "4px" }}>
             {Array.from({ length: total }).map((_, i) => (

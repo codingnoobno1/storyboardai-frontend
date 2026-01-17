@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Card from "./Card";
-import Badge from "./Badge";
+import Card from "../ui/Card";
+import Badge from "../ui/Badge";
 
 export default function KanbanBoard() {
     const COLUMNS = [
