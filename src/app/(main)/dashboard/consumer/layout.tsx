@@ -1,13 +1,58 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ConsumerSidebar from "@/components/navigation/ConsumerSidebar";
 import CreateProjectModal from "@/components/CreateProjectModal";
 import { useProjectContext } from "@/context/ProjectContext";
+import { MobileDashboardLayout } from "@/components/mobile";
+import { Plus } from "lucide-react";
 
 export default function ConsumerLayout({ children }: { children: React.ReactNode }) {
-    const { isCreateModalOpen, closeCreateModal } = useProjectContext();
+    const { isCreateModalOpen, closeCreateModal, openCreateModal } = useProjectContext();
+    const [isMobile, setIsMobile] = useState(false);
 
+    // Detect mobile on mount and resize
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Mobile layout
+    if (isMobile) {
+        return (
+            <>
+                <MobileDashboardLayout
+                    title="Creation Studio"
+                    role="consumer"
+                    showActionBar={true}
+                    actionBarContent={
+                        <button
+                            className="btn-primary"
+                            onClick={openCreateModal}
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: 8,
+                                width: "100%",
+                                minHeight: 48,
+                            }}
+                        >
+                            <Plus size={18} />
+                            New Project
+                        </button>
+                    }
+                >
+                    {children}
+                </MobileDashboardLayout>
+                <CreateProjectModal isOpen={isCreateModalOpen} onClose={closeCreateModal} />
+            </>
+        );
+    }
+
+    // Desktop layout
     return (
         <div style={{
             display: "flex",
@@ -46,3 +91,4 @@ export default function ConsumerLayout({ children }: { children: React.ReactNode
         </div>
     );
 }
+
