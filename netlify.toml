@@ -7,7 +7,7 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   CI = "true"
 
 # Cache settings for faster builds
