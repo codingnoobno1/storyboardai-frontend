@@ -15,8 +15,7 @@ const geistMono = Geist_Mono({
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { headers } from "next/headers";
 import Providers from "@/components/Providers";
-import DesktopLayout from "@/components/layout/DesktopLayout";
-import MobileLayout from "@/components/layout/MobileLayout";
+
 
 export const metadata: Metadata = {
   title: "StoryboardAI",

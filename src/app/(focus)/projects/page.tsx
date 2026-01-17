@@ -1,18 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import RoleSidebar from "@/components/navigation/Sidebar";
-import NotificationCenter from "@/components/dashboard/NotificationCenter";
 import KanbanBoard from "@/components/dashboard/KanbanBoard";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import Calendar from "@/components/ui/Calendar";
 import Card from "@/components/ui/Card";
-import { List, Layout, Filter, Search } from "lucide-react";
+import Badge from "@/components/ui/Badge";
+import { List, Layout, Filter, Search, Plus } from "lucide-react";
+import {
+    MobileScreen,
+    ScrollableStack,
+    Pressable,
+    ActionBar,
+    SkeletonStack
+} from "@/components/mobile";
 
 export default function ProjectsPage() {
-    const [view, setView] = React.useState("kanban");
+    const [view, setView] = useState("kanban");
+    const [isMobile, setIsMobile] = useState(false);
 
-    return (
+    // Mock data based on KanbanBoard COLUMNS
+    const projects = [
+        { id: "1", name: "Cyber Noir Action", status: "Thinker" },
+        { id: "2", name: "Samurai Duel", status: "Thinker" },
+        { id: "3", name: "Space Colony Doc", status: "Planner" },
+        { id: "4", name: "Physics 101 Explainer", status: "Executor" },
+    ];
+
+    useEffect(() => {
+        setIsMobile(/mobile|android|iphone|ipad|phone/i.test(navigator.userAgent));
+    }, []);
+
+    const DesktopContent = (
         <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg)" }}>
             <RoleSidebar />
             <main style={{ flex: 1, padding: "2rem", overflowY: "auto" }}>
@@ -36,7 +55,6 @@ export default function ProjectsPage() {
                                 <List size={18} />
                             </button>
                         </div>
-                        <NotificationCenter />
                     </div>
                 </div>
 
@@ -52,11 +70,21 @@ export default function ProjectsPage() {
                             </button>
                         </div>
 
-                        <KanbanBoard />
+                        {view === "kanban" ? <KanbanBoard /> : (
+                            <ScrollableStack>
+                                {projects.map(p => (
+                                    <Card key={p.id}>
+                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <p style={{ fontWeight: 700 }}>{p.name}</p>
+                                            <Badge variant="secondary">{p.status}</Badge>
+                                        </div>
+                                    </Card>
+                                ))}
+                            </ScrollableStack>
+                        )}
                     </div>
 
                     <aside style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-                        <Calendar />
                         <Card title="Orchestration Stats">
                             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                                 <StatRow label="Success Rate" val="99.4%" />
@@ -69,6 +97,44 @@ export default function ProjectsPage() {
             </main>
         </div>
     );
+
+    const MobileContent = (
+        <MobileScreen title="Projects" header="inline" footer="tab">
+            <div style={{ marginBottom: "20px" }}>
+                <div className="glass" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px" }}>
+                    <Search size={16} color="rgba(255,255,255,0.3)" />
+                    <input type="text" placeholder="Search projects..." style={{ background: "none", border: "none", color: "white", outline: "none", fontSize: "0.9rem", width: "100%" }} />
+                </div>
+            </div>
+
+            <ScrollableStack>
+                {projects.map(p => (
+                    <Pressable key={p.id}>
+                        <Card padding="1.2rem">
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                                    <h4 style={{ margin: 0, fontSize: "1rem", fontWeight: 700 }}>{p.name}</h4>
+                                    <div style={{ display: "flex", gap: "4px" }}>
+                                        <div style={{ width: "20px", height: "4px", borderRadius: "2px", background: "var(--accent)" }} />
+                                        <div style={{ width: "20px", height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.1)" }} />
+                                    </div>
+                                </div>
+                                <Badge variant="secondary" size="sm">{p.status}</Badge>
+                            </div>
+                        </Card>
+                    </Pressable>
+                ))}
+            </ScrollableStack>
+
+            <ActionBar>
+                <button className="btn-primary" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%" }}>
+                    <Plus size={18} /> New Project
+                </button>
+            </ActionBar>
+        </MobileScreen>
+    );
+
+    return isMobile ? MobileContent : DesktopContent;
 }
 
 function StatRow({ label, val }: any) {

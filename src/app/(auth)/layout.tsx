@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import DesktopLayout from "@/components/layout/DesktopLayout";
-import MobileLayout from "@/components/layout/MobileLayout";
+import { MobileLayout } from "@/components/layout/MobileLayout";
 
 export default async function AuthLayout({
   children,

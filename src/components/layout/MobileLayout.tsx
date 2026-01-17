@@ -10,7 +10,21 @@ import {
 } from "antd-mobile-icons";
 import { useRouter, usePathname } from "next/navigation";
 
-export default function MobileLayout({ children }: { children: React.ReactNode }) {
+export interface MobileLayoutProps {
+    children: React.ReactNode;
+    showNav?: boolean;
+    showTab?: boolean;
+    title?: string;
+}
+
+import { MobileTabBar } from "../mobile/navigation/MobileTabBar";
+
+export function MobileLayout({
+    children,
+    showNav = false,
+    showTab = false,
+    title = "StoryboardAI"
+}: MobileLayoutProps) {
     const router = useRouter();
     const pathname = usePathname();
 
@@ -45,37 +59,32 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
             background: "var(--bg)",
             color: "var(--text)"
         }}>
-            <NavBar back={null} style={{
-                position: "sticky",
-                top: 0,
-                zIndex: 100,
-                background: "rgba(5, 5, 7, 0.8)",
-                backdropFilter: "blur(10px)",
-                borderBottom: "1px solid var(--glass-border)"
-            }}>
-                StoryboardAI
-            </NavBar>
+            {showNav && (
+                <NavBar
+                    back={pathname !== "/" ? "" : null}
+                    onBack={() => router.back()}
+                    style={{
+                        position: "sticky",
+                        top: 0,
+                        zIndex: 100,
+                        background: "rgba(5, 5, 7, 0.8)",
+                        backdropFilter: "blur(10px)",
+                        borderBottom: "1px solid var(--glass-border)"
+                    }}
+                >
+                    {title}
+                </NavBar>
+            )}
 
-            <main style={{ flex: 1, padding: "16px", paddingBottom: "80px" }}>
+            <main style={{
+                flex: 1,
+                padding: "16px",
+                paddingBottom: showTab ? "80px" : "16px"
+            }}>
                 {children}
             </main>
 
-            <div style={{
-                position: "fixed",
-                bottom: 0,
-                width: "100%",
-                background: "rgba(5, 5, 7, 0.95)",
-                backdropFilter: "blur(20px)",
-                borderTop: "1px solid var(--glass-border)",
-                paddingBottom: "env(safe-area-inset-bottom)",
-                zIndex: 1000
-            }}>
-                <TabBar activeKey={pathname} onChange={value => router.push(value)}>
-                    {tabs.map(item => (
-                        <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
-                    ))}
-                </TabBar>
-            </div>
+            {showTab && <MobileTabBar tabs={tabs} />}
         </div>
     );
 }
