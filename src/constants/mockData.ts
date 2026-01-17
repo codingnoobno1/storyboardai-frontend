@@ -1,12 +1,12 @@
-import { Storyboard } from "@/types/project";
+import { Project, Template } from "@/types/common";
 
-export const MOCK_PROJECTS: any[] = [
-    { id: "1", title: "Cyber Noir Action", status: "Completed", date: "2025-12-18", scenes: 12 },
-    { id: "2", title: "Global Finance Intro", status: "Processing", date: "2025-12-20", scenes: 8 },
-    { id: "3", title: "The Martian Chronicles", status: "Draft", date: "2025-12-15", scenes: 24 },
+export const MOCK_PROJECTS: Project[] = [
+    { id: "1", title: "Cyber Noir Action", status: "Completed", date: "2025-12-18", scenes: 12, mode: "Text-to-Story" },
+    { id: "2", title: "Global Finance Intro", status: "Processing", date: "2025-12-20", scenes: 8, mode: "PPT-to-Video" },
+    { id: "3", title: "The Martian Chronicles", status: "Draft", date: "2025-12-15", scenes: 24, mode: "Story-to-Visuals" },
 ];
 
-export const MOCK_TEMPLATES: any[] = [
+export const MOCK_TEMPLATES: Template[] = [
     { id: "t1", title: "Neon Tokyo 2077", price: 149, rating: 5, author: "Architect-X" },
     { id: "t2", title: "Samurai Duel Pro", price: 199, rating: 4.8, author: "Shinoda" },
 ];

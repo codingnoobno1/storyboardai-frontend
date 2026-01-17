@@ -2,9 +2,9 @@
 
 import { useModeStore, GlobalMode } from "@/store/useStore";
 import { motion } from "framer-motion";
-import { GraduationCap, PartyPopper, Briefcase } from "lucide-react";
+import { GraduationCap, PartyPopper, Briefcase, LucideIcon } from "lucide-react";
 
-const MODES: { id: GlobalMode, icon: any, color: string }[] = [
+const MODES: { id: GlobalMode, icon: LucideIcon, color: string }[] = [
     { id: 'Education', icon: GraduationCap, color: '#6366F1' },
     { id: 'Fun', icon: PartyPopper, color: '#EC4899' },
     { id: 'Professional', icon: Briefcase, color: '#10B981' },

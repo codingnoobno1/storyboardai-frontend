@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FolderOpen } from "lucide-react";
+import { FolderOpen, LucideIcon } from "lucide-react";
 import Button from "./Button";
 
 interface EmptyStateProps {
@@ -9,7 +9,7 @@ interface EmptyStateProps {
     description: string;
     actionLabel?: string;
     onAction?: () => void;
-    icon?: any;
+    icon?: LucideIcon;
 }
 
 export default function EmptyState({ title, description, actionLabel, onAction, icon: Icon = FolderOpen }: EmptyStateProps) {

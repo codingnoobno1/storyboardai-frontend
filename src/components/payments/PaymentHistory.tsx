@@ -16,12 +16,12 @@ export default function PaymentHistory() {
     const headers = ["Invoice ID", "Date", "Pack Name", "Amount", "Status", "Receipt"];
 
     const data = HISTORY.map(item => [
-        <span style={{ fontWeight: 600 }}>{item.id}</span>,
+        <span key={`id-${item.id}`} style={{ fontWeight: 600 }}>{item.id}</span>,
         item.date,
         item.pack,
         item.amount,
-        <Badge variant={item.status === "Completed" ? "success" : "error"}>{item.status}</Badge>,
-        <div style={{ display: "flex", gap: "10px", color: "rgba(255,255,255,0.4)" }}>
+        <Badge key={`status-${item.id}`} variant={item.status === "Completed" ? "success" : "error"}>{item.status}</Badge>,
+        <div key={`actions-${item.id}`} style={{ display: "flex", gap: "10px", color: "rgba(255,255,255,0.4)" }}>
             <Download size={16} style={{ cursor: 'pointer' }} />
             <ExternalLink size={16} style={{ cursor: 'pointer' }} />
         </div>

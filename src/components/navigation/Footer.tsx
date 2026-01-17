@@ -49,11 +49,21 @@ export default function Footer() {
     );
 }
 
-function FooterColumn({ title, links }: any) {
+interface FooterLink {
+    label: string;
+    href: string;
+}
+
+interface FooterColumnProps {
+    title: string;
+    links: FooterLink[];
+}
+
+function FooterColumn({ title, links }: FooterColumnProps) {
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
             <h4 style={{ fontSize: "1rem", fontWeight: 800, color: "white" }}>{title}</h4>
-            {links.map((link: any) => (
+            {links.map((link) => (
                 <Link key={link.label} href={link.href} style={{ color: "rgba(255,255,255,0.4)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600, transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--accent)"} onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.4)"}>
                     {link.label}
                 </Link>

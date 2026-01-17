@@ -1,13 +1,13 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { LucideIcon, ChevronDown } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 
 interface DropdownOption {
     id: string;
     label: string;
-    icon?: any;
+    icon?: LucideIcon;
 }
 
 interface DropdownProps {

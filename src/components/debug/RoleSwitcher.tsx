@@ -2,14 +2,14 @@
 
 import React from "react";
 import { useUserStore, UserRole } from "@/store/useStore";
-import { User, Crown, Briefcase } from "lucide-react";
+import { User, Crown, Briefcase, LucideIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function RoleSwitcher() {
     const { role, setRole } = useUserStore();
     const router = useRouter();
 
-    const roles: { value: UserRole; label: string; icon: any; color: string }[] = [
+    const roles: { value: UserRole; label: string; icon: LucideIcon; color: string }[] = [
         { value: "Consumer", label: "Consumer", icon: User, color: "#6366f1" },
         { value: "Creator", label: "Creator", icon: Briefcase, color: "#10b981" },
         { value: "Admin", label: "Admin", icon: Crown, color: "#ef4444" },

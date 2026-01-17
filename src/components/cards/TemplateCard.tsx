@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ShoppingCart, Star, Tag, User } from "lucide-react";
 
 export interface Template {
@@ -27,7 +28,7 @@ export default function TemplateCard({ template }: TemplateCardProps) {
             style={{ overflow: 'hidden', padding: 0 }}
         >
             <div style={{ height: '180px', background: 'rgba(0,0,0,0.3)', position: 'relative' }}>
-                <img src={image} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
+                <Image src={image} alt={name} fill style={{ objectFit: 'cover', opacity: 0.8 }} unoptimized />
                 <div style={{ position: 'absolute', top: '12px', right: '12px', background: 'rgba(5, 5, 5, 0.6)', backdropFilter: 'blur(4px)', padding: '4px 10px', borderRadius: '20px', fontSize: '0.75rem', color: 'var(--accent)', fontWeight: 700 }}>
                     {price} Credits
                 </div>

@@ -45,12 +45,14 @@ export const useCreditStore = create<CreditStore>()(
             storyCredits: 120,
             imageCredits: 80,
             videoCredits: 20,
-            addCredits: (type, amount) => set((state) => ({
-                [`${type}Credits` as any]: (state[`${type}Credits` as keyof CreditStore] as number) + amount
-            })),
-            spendCredits: (type, amount) => set((state) => ({
-                [`${type}Credits` as any]: Math.max(0, (state[`${type}Credits` as keyof CreditStore] as number) - amount)
-            })),
+            addCredits: (type, amount) => set((state) => {
+                const key = `${type}Credits` as keyof CreditStore;
+                return { [key]: (state[key] as number) + amount };
+            }),
+            spendCredits: (type, amount) => set((state) => {
+                const key = `${type}Credits` as keyof CreditStore;
+                return { [key]: Math.max(0, (state[key] as number) - amount) };
+            }),
         }),
         { name: 'sb-credit-storage' }
     )

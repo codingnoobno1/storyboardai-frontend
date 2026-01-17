@@ -5,6 +5,10 @@ import { Clock, Scissors, Music, Layers, Volume2 } from "lucide-react";
 import Card from "../ui/Card";
 
 export default function VideoTimeline({ duration = 45 }: { duration?: number }) {
+    const waveformHeights = React.useMemo(() => {
+        return Array.from({ length: 40 }).map(() => 20 + Math.random() * 60);
+    }, []);
+
     return (
         <Card padding="1rem">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
@@ -31,8 +35,8 @@ export default function VideoTimeline({ duration = 45 }: { duration?: number }) 
                 <div style={{ position: "absolute", bottom: "10px", left: "10px", right: "10px", height: "30px", background: "rgba(16, 185, 129, 0.1)", borderRadius: "6px", border: "1px dashed rgba(16, 185, 129, 0.3)", display: "flex", alignItems: "center", padding: "0 10px" }}>
                     <Music size={12} color="#10B981" />
                     <div style={{ flex: 1, height: "100%", display: "flex", alignItems: "center", gap: "2px", marginLeft: "10px" }}>
-                        {Array.from({ length: 40 }).map((_, i) => (
-                            <div key={i} style={{ width: "2px", height: `${20 + Math.random() * 60}%`, background: "#10B981", opacity: 0.6 }} />
+                        {waveformHeights.map((height, i) => (
+                            <div key={i} style={{ width: "2px", height: `${height}%`, background: "#10B981", opacity: 0.6 }} />
                         ))}
                     </div>
                 </div>

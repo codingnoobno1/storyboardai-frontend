@@ -13,10 +13,11 @@ import {
     Megaphone,
     Settings,
     LogOut,
+    LucideIcon
 } from "lucide-react";
 
 interface NavItem {
-    icon: any;
+    icon: LucideIcon;
     label: string;
     path: string;
 }

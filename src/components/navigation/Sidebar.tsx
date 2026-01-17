@@ -3,21 +3,15 @@
 import { useUserStore, UserRole } from "@/store/useStore";
 import { useAuth } from "@/context/AuthContext";
 import {
-    LayoutDashboard,
-    Film,
-    Image as ImageIcon,
     Settings,
     LogOut,
-    ShoppingBag,
-    Zap,
-    PenTool,
     BarChart3,
-    DollarSign,
-    ShieldCheck,
     Users,
     Sparkles,
+    Film,
     BookOpen,
     Store,
+    Zap,
     TrendingUp,
     Palette,
     Wallet,
@@ -28,12 +22,13 @@ import {
     PieChart,
     AlertTriangle,
     FileCheck,
+    LucideIcon
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface NavItem {
-    icon: any;
+    icon: LucideIcon;
     label: string;
     path: string;
 }

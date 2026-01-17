@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Wand2, BookOpen, ImageIcon, Film, FileText, Sparkles, Image as LucideImage, Check } from "lucide-react";
 import { useState } from "react";
-import { useProjects, ProjectMode } from "@/context/ProjectContext";
+import { useProjects } from "@/context/ProjectContext";
+import { ProjectMode } from "@/types/common";
 import CreationModeCard from "./CreationModeCard";
 import FullPageLoader from "./FullPageLoader";
 

@@ -2,27 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-export type ProjectMode = "Text-to-Story" | "Story-to-Visuals" | "Visuals-to-Video" | "PPT-to-Video";
-
-export interface Scene {
-    id: string;
-    text: string;
-    visualDescription: string;
-    imageUrl?: string;
-    status: "pending" | "generating" | "completed";
-}
-
-export interface Project {
-    id: string;
-    title: string;
-    status: "Completed" | "Processing" | "Draft";
-    mode: ProjectMode;
-    coverImage?: string;
-    coverStyle?: string;
-    date: string;
-    scenes: Scene[];
-    videoUrl?: string;
-}
+import { Project, Scene, ProjectMode } from "@/types/common";
 
 interface ProjectContextType {
     projects: Project[];
@@ -96,7 +76,7 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
                     return {
                         ...p,
                         status: "Completed",
-                        scenes: data.result.results.map((r: any, idx: number) => ({
+                        scenes: data.result.results.map((r: { script?: string; visual?: string }, idx: number) => ({
                             id: `scene_${idx}`,
                             text: r.script || "Generated scene",
                             visualDescription: r.visual || "AI visual",
@@ -108,13 +88,14 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
             }));
 
             return newId;
-        } catch (error: any) {
+        } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
             console.error("Orchestration Error:", error);
             // Handle error (e.g., mark project as failed)
             setProjects(current => current.map(p =>
                 p.id === newId ? { ...p, status: "Draft" as const } : p
             ));
-            alert(`Error: ${error.message}`);
+            alert(`Error: ${errorMessage}`);
             return newId;
         }
     };

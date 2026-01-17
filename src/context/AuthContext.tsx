@@ -26,7 +26,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const router = useRouter();
 
     useEffect(() => {
-        // Mock persistent login check
         const savedUser = localStorage.getItem("sb_user");
         if (savedUser) {
             setUser(JSON.parse(savedUser));

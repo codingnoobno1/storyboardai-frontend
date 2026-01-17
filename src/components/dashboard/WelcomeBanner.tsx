@@ -27,7 +27,7 @@ export default function WelcomeBanner() {
                     Welcome back, {user?.name?.split(" ")[0] || "Story Architect"}! 🚀
                 </h2>
                 <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "1.1rem", maxWidth: "500px", lineHeight: 1.5 }}>
-                    Your 'Cyber Noir' project is currently being processed by the Planner Agent. Check the Status logs for details.
+                    Your &apos;Cyber Noir&apos; project is currently being processed by the Planner Agent. Check the Status logs for details.
                 </p>
             </div>
 

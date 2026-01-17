@@ -4,7 +4,7 @@ import React from "react";
 
 interface TableProps {
     headers: string[];
-    data: any[][];
+    data: React.ReactNode[][];
 }
 
 export default function Table({ headers, data }: TableProps) {

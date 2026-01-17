@@ -13,12 +13,13 @@ import {
     Settings,
     LogOut,
     Briefcase,
+    LucideIcon
 } from "lucide-react";
 import { useUserStore } from "@/store/useStore";
 import { useRouter } from "next/navigation";
 
 interface NavItem {
-    icon: any;
+    icon: LucideIcon;
     label: string;
     path: string;
 }
