@@ -3,7 +3,7 @@
 import React from "react";
 import { TabBar, NavBar } from "antd-mobile";
 import {
-    HomeOutline,
+    MoreOutline,
     AppOutline,
     UnorderedListOutline,
     UserOutline
@@ -18,7 +18,7 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
         {
             key: "/",
             title: "Home",
-            icon: <HomeOutline />,
+            icon: <MoreOutline />,
         },
         {
             key: "/dashboard",
