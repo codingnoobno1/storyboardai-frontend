@@ -30,6 +30,9 @@ export * from './feedback/Haptic';
 export * from './feedback/PullToRefresh';
 export * from './feedback/EmptyState';
 
+// Editor components
+export * from './editor';
+
 // Providers
 export * from './providers/NavigationModeProvider';
 

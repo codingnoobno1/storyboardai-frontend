@@ -18,6 +18,7 @@ import {
     Settings
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { MobileEditorShell } from "@/components/mobile/editor/MobileEditorShell";
 
 export default function StoryboardEditorPage() {
     const { id } = useParams();
@@ -25,6 +26,15 @@ export default function StoryboardEditorPage() {
     const { getProject } = useProjects();
     const { user, isLoading } = useAuth();
     const [project, setProject] = useState<any>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Mobile detection
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         if (!isLoading && !user) router.push("/login");
@@ -36,6 +46,32 @@ export default function StoryboardEditorPage() {
 
     if (!project) return <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading Editor...</div>;
 
+    // Demo scenes data
+    const scenes = [
+        { id: "1", index: 0, text: "The neon signs flicker as Dex walks down the alley.", visualPrompt: "Cinematic noir lighting, heavy rain, purple and teal neon reflections, high contrast." },
+        { id: "2", index: 1, text: "Close up on Dex's mechanical eye scanning the wall.", visualPrompt: "Extreme close-up, sci-fi, glowing circuits, dark atmosphere." },
+        { id: "3", index: 2, text: "A hidden door slides open, revealing a secret lab.", visualPrompt: "Dramatic reveal, volumetric lighting, futuristic laboratory." },
+        { id: "4", index: 3, text: "Dex enters the room, gun drawn and alert.", visualPrompt: "Action pose, tension, low angle shot, cinematic framing." },
+    ];
+
+    // Mobile: Render MobileEditorShell
+    if (isMobile) {
+        return (
+            <MobileEditorShell
+                projectId={id as string}
+                projectTitle={project.title}
+                scenes={scenes}
+                onBack={() => router.push("/dashboard/consumer")}
+                onGenerate={() => router.push(`/video/${id}`)}
+                onRegenerateScene={(sceneId) => console.log("Regenerate", sceneId)}
+                onUpdatePrompt={(sceneId, prompt) => console.log("Update prompt", sceneId, prompt)}
+                onAddScene={() => console.log("Add scene")}
+                onDeleteScene={(sceneId) => console.log("Delete", sceneId)}
+            />
+        );
+    }
+
+    // Desktop: Original layout
     return (
         <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "#050505" }}>
             {/* Top Bar */}
@@ -76,14 +112,13 @@ export default function StoryboardEditorPage() {
                 {/* Scene list */}
                 <div style={{ width: "300px", borderRight: "1px solid var(--card-border)", display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.01)" }}>
                     <div style={{ padding: "1.2rem", borderBottom: "1px solid var(--card-border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontWeight: "600", fontSize: "0.9rem" }}>Scenes (4)</span>
+                        <span style={{ fontWeight: "600", fontSize: "0.9rem" }}>Scenes ({scenes.length})</span>
                         <button style={{ background: "none", border: "none", color: "var(--accent)", cursor: "pointer" }}><Plus size={18} /></button>
                     </div>
                     <div style={{ flex: 1, overflowY: "auto", padding: "1rem" }}>
-                        <SceneItem index={1} text="The neon signs flicker as Dex walks down the alley." active />
-                        <SceneItem index={2} text="Close up on Dex's mechanical eye scanning the wall." />
-                        <SceneItem index={3} text="A hidden door slides open, revealing a secret lab." />
-                        <SceneItem index={4} text="Dex enters the room, gun drawn and alert." />
+                        {scenes.map((scene) => (
+                            <SceneItem key={scene.id} index={scene.index + 1} text={scene.text} active={scene.index === 0} />
+                        ))}
                     </div>
                 </div>
 
@@ -93,13 +128,13 @@ export default function StoryboardEditorPage() {
                         <div style={{ textAlign: 'center' }}>
                             <div style={{ fontSize: '5rem', marginBottom: '1rem' }}>🌆</div>
                             <h3 style={{ fontSize: '1.5rem', color: 'rgba(255,255,255,0.6)' }}>AI Scene Preview</h3>
-                            <p style={{ color: 'rgba(255,255,255,0.3)', marginTop: '0.5rem' }}>The neon signs flicker as Dex walks down the alley.</p>
+                            <p style={{ color: 'rgba(255,255,255,0.3)', marginTop: '0.5rem' }}>{scenes[0].text}</p>
                         </div>
 
                         <div style={{ position: 'absolute', bottom: '2rem', left: '2rem', right: '2rem', display: 'flex', gap: '1rem' }}>
                             <div className="glass" style={{ flex: 1, padding: '1rem', background: 'rgba(0,0,0,0.6)' }}>
                                 <p style={{ fontSize: '0.8rem', color: 'var(--cyan)', marginBottom: '0.4rem' }}>Visual Prompt</p>
-                                <p style={{ fontSize: '0.9rem' }}>Cinematic noir lighting, heavy rain, purple and teal neon reflections, high contrast.</p>
+                                <p style={{ fontSize: '0.9rem' }}>{scenes[0].visualPrompt}</p>
                             </div>
                             <button className="btn-primary" style={{ padding: '0 1.5rem' }}> Regenerate </button>
                         </div>
@@ -156,3 +191,4 @@ function SceneItem({ index, text, active = false }: { index: number, text: strin
         </div>
     );
 }
+
