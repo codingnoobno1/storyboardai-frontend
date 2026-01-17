@@ -1,59 +1,7 @@
-# Netlify Configuration for Next.js + StoryboardAI
-# https://docs.netlify.com/configure-builds/file-based-configuration/
-
 [build]
   command = "npm run build"
-  functions = "netlify/functions"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
   CI = "true"
-
-# Cache settings for faster builds
-[[headers]]
-  for = "/static/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/_next/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# Redirect rules for Next.js App Router
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/___netlify-server-handler"
-  status = 200
-
-# Performance: Enable compression
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[build.processing.images]
-  compress = true
-
-# Netlify Functions configuration
-[functions]
-  node_bundler = "esbuild"
-  external_node_modules = ["next"]
-
-# Environment variables per deploy context
-[context.production]
-  command = "npm run build"
-
-[context.deploy-preview]
-  command = "npm run build"
-
-[context.branch-deploy]
-  command = "npm run build"
-
