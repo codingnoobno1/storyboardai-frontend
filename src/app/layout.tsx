@@ -37,11 +37,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AntdRegistry>
           <Providers>
-            {isMobile ? (
-              <MobileLayout>{children}</MobileLayout>
-            ) : (
-              <DesktopLayout>{children}</DesktopLayout>
-            )}
+            {children}
           </Providers>
         </AntdRegistry>
       </body>
